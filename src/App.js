@@ -10,8 +10,8 @@ function App() {
     <React.Fragment>
       <div className="container">
         <div className="row">
-          <TodoList />
           <TodoInput />
+          <TodoList />
         </div>
       </div>
     </React.Fragment>
