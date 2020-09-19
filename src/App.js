@@ -28,23 +28,55 @@ class App extends Component {
   }
 
   handleChange = (e) => {
-    console.log("handleChange");
+    e.preventDefault();
+    this.setState({
+      item: e.target.value
+    })
   }
 
   handleSubmit = (e) => {
-    console.log("handleSubmit");
+    e.preventDefault();
+    const newItem = {
+      id: this.state.id,
+      title: this.state.item
+    }
+
+    const updatedItems = [...this.state.items, newItem]
+    this.setState({
+      items: updatedItems,
+      id: uuidv4(),
+      item: '',
+      editItem: false
+    }, () => console.log(this.state))
   }
   handleDelete = (id) => {
-    console.log(`handleDelete ${id}`)
+    const newItems = this.state.items.filter(
+      (items) => items.id !== id)
+    this.setState({
+      items: newItems
+    })
   }
   handleEdit = (id) => {
-    console.log(`handleEdit ${id}`)
+    const filteredItem = this.state.items.filter(
+      (items) => items.id !== id)
+
+    //find doesn't create an array but gets single item
+    const selectedItem = this.state.items.find(
+      (items) => items.id === id)
+    this.setState({
+      items: filteredItem,
+      item: selectedItem.title,
+      id: id,
+      editItem: true
+    })
   }
   clearList = () => {
-    console.log("Clear List");
+    // console.log("Clear List");
+    this.setState({
+      items: []
+    })
   }
   render() {
-    console.log(this.state.id)
     return (
       <React.Fragment>
         <div className="container">
